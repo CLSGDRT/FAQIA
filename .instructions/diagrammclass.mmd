@@ -1,0 +1,36 @@
+classDiagram
+    %% class User {
+    %%     +id: int
+    %%     +username: str
+    %%     +email: str
+    %%     +password_hash: str
+    %%     +is_admin: bool
+    %% }
+
+    class FAQ {
+        +id: int
+        +question: str
+        +answer: str
+        +number: int
+        +created_at: datetime
+    }
+
+    class Document {
+        +id: int
+        +filename: str
+        +filepath: str
+        +uploaded_at: datetime
+    }
+
+    class RAGEngine {
+        +upload_document()
+        +load_documents()
+        +generate_FAQ()
+    }
+
+    %% FAQ "*" -- "1" User : created_by
+    Document "1" -- "*" FAQ : source_for
+    %% User "1" -- "*" VisitLog : visits
+    RAGEngine --> Document : uses
+    RAGEngine --> FAQ : generates
+
