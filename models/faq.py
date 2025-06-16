@@ -1,4 +1,4 @@
-from main import db
+from database.instance import db
 from services.dateformat import now_paris
 
 class FAQ(db.Model):

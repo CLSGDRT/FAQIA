@@ -11,7 +11,10 @@ class DocumentProcessor:
             reader = PyPDF2.PdfReader(file)
             text = ""
             for page in reader.pages:
-                text += page.extract_text()
+                try:
+                    text += page.extract_text() or ""
+                except Exception as e:
+                    print(f"Erreur d'extraction sur une page : {e}")
         return text
     
     @staticmethod

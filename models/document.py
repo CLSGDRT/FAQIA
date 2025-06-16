@@ -1,5 +1,5 @@
-from main import db
 from services.dateformat import now_paris
+from database.instance import db
 
 class Document(db.Model):
     __tablename__ = 'documents'

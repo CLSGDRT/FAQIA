@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil - Metz Numeric School</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Metz Numeric School</h1>
+        <nav>
+            <a href="/">Accueil</a>
+            <a href="/faq">FAQ</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="intro">
+            <h2>Bienvenue sur notre application</h2>
+            <p>Découvrez les réponses aux questions les plus fréquentes ci-dessous.</p>
+        </section>
+
+        <section id="faq">
+            <h2>Foire Aux Questions</h2>
+            <div class="faq-container">
+                {% for faq in faqs %}
+                    <div class="faq-item">
+                        <h3 class="question">{{ faq.number }}. {{ faq.question }}</h3>
+                        <p class="answer">{{ faq.answer }}</p>
+                    </div>
+                {% else %}
+                    <p>Aucune question disponible pour ce document.</p>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; {{ year }} Metz Numeric School - Tous droits réservés.</p>
+    </footer>
+</body>
+</html>
+

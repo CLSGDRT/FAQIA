@@ -3,7 +3,7 @@ from langchain.prompts import PromptTemplate
 from services.documentprocessor import DocumentProcessor
 from models.document import Document
 from models.faq import FAQ
-from main import db
+from database.instance import db
 
 class RagEngine:
     def __init__(self):
@@ -11,24 +11,11 @@ class RagEngine:
         self.document_processor = DocumentProcessor()
         
     def init_llm(self, llm_name):
-        """Initialise le modèle LLM Ollama"""
         self.llm = Ollama(model=llm_name)
         print(f"Modèle {llm_name} démarré...")
         return self.llm
     
     def process_document_to_faqs(self, document: Document, num_faqs=10, chunk_size=500, overlap=50):
-        """
-        Pipeline complet: Document -> chunks -> FAQ -> base de données
-        
-        Args:
-            document: Objet Document de la base de données
-            num_faqs: Nombre de FAQ à générer (max 10)
-            chunk_size: Taille des chunks
-            overlap: Chevauchement entre chunks
-        
-        Returns:
-            Liste d'objets FAQ
-        """
         if not self.llm:
             raise ValueError("LLM non initialisé. Utilisez init_llm() d'abord.")
         
@@ -48,17 +35,6 @@ class RagEngine:
         return faqs
     
     def generate_faqs_from_chunks(self, chunks, document_id, num_faqs=10):
-        """
-        Génère des objets FAQ à partir des chunks
-        
-        Args:
-            chunks: Liste des chunks de texte (du DocumentProcessor)
-            document_id: ID du document source
-            num_faqs: Nombre de FAQ à générer (max 10)
-        
-        Returns:
-            Liste d'objets FAQ
-        """
         if not self.llm:
             raise ValueError("LLM non initialisé. Utilisez init_llm() d'abord.")
         
@@ -84,6 +60,7 @@ Instructions:
   Q2: [Question]
   R2: [Réponse]
   ... etc
+- Format json permettant ensuite de modifier une Q/R
 
 FAQ:"""
         )
