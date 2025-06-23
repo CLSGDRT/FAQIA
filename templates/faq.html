@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+    <section id="intro">
+        <h2>FAQ du document : {{ document.filename if document else 'Document inconnu' }}</h2>
+        <p>Découvrez les réponses aux questions les plus fréquentes ci-dessous.</p>
+    </section>
+
+
+    <section id="faq">
+        <h2>Foire Aux Questions</h2>
+        <div class="faq-container">
+            {% for faq in faqs %}
+                <div class="faq-item">
+                    <h3 class="question">{{ faq.number }}. {{ faq.question }}</h3>
+                    <p class="answer">{{ faq.answer }}</p>
+                </div>
+            {% else %}
+                <section id="generate-faq">
+                    <form method="post" action="{{ url_for('showfaq') }}?document_id={{ document.id if document else '' }}">
+                        <button type="submit">
+                            Générer la FAQ pour ce document
+                            <span id="loader" class="loader hidden"></span>
+                        </button>
+                    </form>
+                </section>
+            {% endfor %}
+        </div>
+    </section>
+    <script>
+        function showLoader() {
+            document.getElementById('loader').classList.remove('hidden');
+        }
+    </script>
+
+
+{% endblock %}

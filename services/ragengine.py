@@ -50,7 +50,7 @@ Contexte du document:
 {context}
 
 Instructions:
-- Créez exactement {num_faqs} questions-réponses
+- Créez exactement {num_faqs} questions-réponses en français
 - Les questions doivent être claires et pratiques
 - Les réponses doivent être basées uniquement sur le contenu fourni
 - Numérotez chaque FAQ de 1 à {num_faqs}

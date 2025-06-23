@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section id="documents">
+    <h2>Liste des documents disponibles</h2>
+    {% if documents %}
+        <ul>
+            {% for doc in documents %}
+                <li>
+                    <strong>
+                      <a href="{{ url_for('showfaq') }}?document_id={{ doc.id }}">
+                        Document numéro : {{ doc.id }}
+                      </a>
+                    </strong><br>
+                    <small>Uploadé le : {{ doc.uploaded_at }}</small>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun document disponible.</p>
+    {% endif %}
+</section>
+{% endblock %}

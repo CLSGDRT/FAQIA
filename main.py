@@ -6,7 +6,7 @@ import os
 def example_usage():
     with app.app_context():
         # Définir le chemin du fichier PDF
-        pdf_path = "./data/document.pdf"
+        pdf_path = "./data/document3.pdf"
         pdf_name = os.path.basename(pdf_path)
         document = Document.query.filter_by(filepath=pdf_path).first()
         if not document:
@@ -18,7 +18,7 @@ def example_usage():
         else:
             print(f"Document '{pdf_name}' déjà présent dans la base.")
 
-        document = Document.query.first()  # ou Document.query.get(document_id)
+        document = Document.query.filter_by(filepath=pdf_path).first()
         
         if not document:
             print("Aucun document trouvé en base")
