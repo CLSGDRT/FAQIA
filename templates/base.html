@@ -16,6 +16,16 @@
     </header>
 
     <main>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                {% for message in messages %}
+                    <div class="flash">{{ message }}</div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
         {% block content %}
         <section id="welcome">
             <h2>Bienvenue sur FAQIA – FAQ Assistée par l'IA</h2>
