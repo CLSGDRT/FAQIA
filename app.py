@@ -6,6 +6,7 @@ from flask import render_template, request, flash, redirect, url_for
 from werkzeug.utils import secure_filename
 import uuid
 import os
+from threading import Thread
 
 app.config['UPLOAD_FOLDER'] = os.path.abspath('./data')
 
@@ -21,17 +22,24 @@ def showfaq():
         flash(f"Document avec l'id {document_id} non trouvé.")
         return render_template('faq.html', faqs=[], document=None)
 
+    
     if request.method == "POST":
-        # Générer les FAQ à la demande
-        rag = RagEngine()
-        rag.init_llm("llama3")
-        faqs = rag.process_and_save_faqs(
-            document=document,
-            num_faqs=10,
-            chunk_size=500,
-            overlap=50
-        )
-        flash("FAQ générées avec succès.")
+        # Lancer la génération en arrière-plan
+        def generate_faqs(document):
+            rag = RagEngine()
+            rag.init_llm("llama3.2:1b")
+            rag.process_and_save_faqs(
+                document=document,
+                num_faqs=10,
+                chunk_size=500,
+                overlap=50
+            )
+
+        Thread(target=generate_faqs, args=(document,), daemon=True).start()
+        flash("Génération des FAQ en cours... Veuillez recharger la page dans quelques instants.")
+
+        # On retourne les anciennes FAQ (ou vide)
+        faqs = FAQ.query.filter_by(document_id=document_id).order_by(FAQ.number).limit(10).all()
     else:
         # GET : juste récupérer les FAQ existantes
         faqs = FAQ.query.filter_by(document_id=document_id).order_by(FAQ.number).limit(10).all()
