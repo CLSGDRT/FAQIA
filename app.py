@@ -27,7 +27,7 @@ def showfaq():
         # Lancer la génération en arrière-plan
         def generate_faqs(document):
             rag = RagEngine()
-            rag.init_llm("llama3.2:1b")
+            rag.init_llm("llama3")
             rag.process_and_save_faqs(
                 document=document,
                 num_faqs=10,

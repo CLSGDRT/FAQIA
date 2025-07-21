@@ -1,0 +1,16 @@
+erDiagram
+    DOCUMENTS ||--o{ FAQS : contient
+    DOCUMENTS {
+        int id PK
+        string filename
+        string filepath
+        datetime uploaded_at
+    }
+    FAQS {
+        int id PK
+        text question
+        text answer
+        int number
+        datetime updated_at
+        int document_id FK
+    }

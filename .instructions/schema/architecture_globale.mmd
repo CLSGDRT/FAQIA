@@ -1,0 +1,14 @@
+graph TD
+Utilisateur -->|Web| Flask
+Flask -->|ORM| SQLAlchemy
+Flask -->|Templates| Jinja2
+Flask -->|LLM| Ollama
+Flask -->|Fichiers| StockagePDF
+SQLAlchemy -->|SQLite| BaseDeDonnees
+Utilisateur[Utilisateur]
+Flask[Flask Backend]
+SQLAlchemy[SQLAlchemy ORM]
+Jinja2[Jinja2 Templates]
+Ollama[Ollama LLM]
+StockagePDF[Stockage PDF]
+BaseDeDonnees[Base SQLite]

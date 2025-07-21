@@ -1,0 +1,14 @@
+graph TD
+Upload --> Extraction
+Extraction --> Decoupage
+Decoupage --> LLM
+LLM --> Parsing
+Parsing --> Sauvegarde
+Sauvegarde --> Consultation
+Upload[Upload PDF]
+Extraction[Extraction texte]
+Decoupage[Découpage en chunks]
+LLM[Appel LLM Ollama]
+Parsing[Parsing Q/R]
+Sauvegarde[Sauvegarde en base]
+Consultation[Consultation FAQ]

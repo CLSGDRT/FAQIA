@@ -11,7 +11,7 @@ template_dir = os.path.join(base_dir, '..', 'templates')  # remonte d'un cran
 static_dir = os.path.join(base_dir, '..', 'static')
 
 app = Flask(__name__, static_folder=static_dir, template_folder=template_dir)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/easyy/development/FAQIA/database/faqia.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/easyy/Developpement/Python/FAQIA/database/faqia.db'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////var/www/html/faqia/database/faqia.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = "secret-key-cyril"

@@ -1,18 +1,17 @@
 classDiagram
-    %% class User {
-    %%     +id: int
-    %%     +username: str
-    %%     +email: str
-    %%     +password_hash: str
-    %%     +is_admin: bool
-    %% }
-
     class FAQ {
         +id: int
         +question: str
         +answer: str
         +number: int
         +created_at: datetime
+        +__repr__()
+    }
+
+    class Document_processing {
+        +document : Document
+        +extract_text_from_pdf()
+        +text_to_chunks()
     }
 
     class Document {
@@ -20,17 +19,18 @@ classDiagram
         +filename: str
         +filepath: str
         +uploaded_at: datetime
+        +__repr__()
     }
 
     class RAGEngine {
-        +upload_document()
-        +load_documents()
-        +generate_FAQ()
+        +chunks : str
+        +init_llm()
+        +generate_faqs_from_chunks()
+        +save_faqs()
     }
 
-    %% FAQ "*" -- "1" User : created_by
+    Document --> Document_processing : feed
     Document "1" -- "*" FAQ : source_for
-    %% User "1" -- "*" VisitLog : visits
-    RAGEngine --> Document : uses
+    Document_processing --> RAGEngine : transform into chunks
     RAGEngine --> FAQ : generates
 
